@@ -35,7 +35,8 @@ class SudokuSolver {
 
   checkRegionPlacement(puzzleString, row, col, value) {
     let grid = this.stringToSudokuArray(puzzleString);
-    row = this.letterToNumber(row);
+    row = this.letterToNumber(row)-1;
+    col= col-1;
     let startRow = row - (row % 3),
       startCol = col - (col % 3);
     for (let i = 0; i < 3; i++)
@@ -138,6 +139,9 @@ class SudokuSolver {
   }
 
   completeSudoku(puzzleString) {
+    if (this.validate(puzzleString) != "Valid") {
+      return false;
+    }
     const board = this.stringToSudokuArray(puzzleString);
     const solvedBoard = this.solveSudoku(board);
     if(!solvedBoard){
